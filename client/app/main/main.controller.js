@@ -6,7 +6,7 @@ angular.module('dailyLifeApp')
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+      socket.syncUpdates('thing', $scope.awesomeThings);//실시간 업데이트 가능한이유??
     });
 
     $scope.addThing = function() {
