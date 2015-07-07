@@ -5,7 +5,7 @@ var controller = require('./thing.controller');
 
 var router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', controller.index);// api/thing 디렉토리 아래에 있으므로 '/' get / 오면 controller.index실행
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

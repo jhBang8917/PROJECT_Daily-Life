@@ -13,7 +13,10 @@ angular.module('dailyLifeApp')
       if($scope.newThing === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
+      $http.post('/api/things', {
+        name: $scope.newThing,
+        date: $scope.newDate.toLocaleDateString()
+      });
       $scope.newThing = '';
     };
 
