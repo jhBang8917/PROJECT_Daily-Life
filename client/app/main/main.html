@@ -23,7 +23,7 @@
       <h2 class="page-header">To-Do</h2>
       <div class="list-group" >
         <span class="label label-warning">Must</span>
-        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings">
+        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings | filter:priorityFilter">
           <h4 class="list-group-item-heading">{{thing.name}}
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
@@ -33,13 +33,13 @@
         </div>
       <div class="list-group" >
         <span class="label label-primary">Today</span>
-        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings">
+        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:todayFilter">
           <h4 class="list-group-item-heading">{{thing.name}}</h4>
         </a>
       </div>
       <div class="list-group" >
         <span class="label label-default">Week</span>
-        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings">
+        <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:weekFilter" >
           <h4 class="list-group-item-heading">{{thing.name}}  {{thing.date | date:'fullDate'}}</h4>
         </a>
       </div>
