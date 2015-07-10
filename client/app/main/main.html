@@ -10,8 +10,28 @@
 <div class="container">
   <h5 class="page-header">어제의 다짐(일기장에서 등록 가능)</h5>
   <div class="alert alert-success">
-  	<strong>오늘은 뭐먹지</strong>
+    <strong>오늘은 뭐먹지</strong>
   </div>
+</div>
+
+<div class="container">
+  <h5 class="page-header">Today Plan</h5>
+  <table class="table table-bordered table-hover">
+  	<thead>
+  		<tr>
+  			<th>오전</th>
+  			<th>오후</th>
+  			<th>저녁</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  		<tr>
+  			<td>Drag && Drop</td>
+  			<td>Drag && Drop</td>
+  			<td>Drag && Drop</td>
+  		</tr>
+  	</tbody>
+  </table>
 </div>
 
 
@@ -21,8 +41,28 @@
   <div class="row">
     <div class="col-lg-12">
       <h2 class="page-header">To-Do</h2>
+      <form class="thing-form">
+        <label>빠른등록</label>
+        <p class="input-group">
+
+          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
+          <input type="date" class="form-control" ng-model="newDate">
+          <input type="checkbox" ng-model="priority.value" ng-true-value="'high'" ng-false-value="'normal'">
+           <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
+      </span>
+        </p>
+      </form>
+
       <div class="list-group" >
         <span class="label label-warning">Must</span>
+        <button type="button" ng-click="show('addMust')">
+          <span class="glyphicon glyphicon-plus-sign"/>
+        </button>
+        <form class="thing-form" ng-show="addMust">
+          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
+          <button type="submit" class="btn btn-primary" ng-click="addThing('must')">Add New</button>
+        </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings | filter:priorityFilter">
           <h4 class="list-group-item-heading">{{thing.name}}
             <button type="button" class="close" ng-click="deleteThing(thing)">
@@ -30,38 +70,47 @@
             </button>
           </h4>
         </a>
-        </div>
+
+      </div>
       <div class="list-group" >
         <span class="label label-primary">Today</span>
+        <button type="button" ng-click="show('addToday')">
+          <span class="glyphicon glyphicon-plus-sign"/>
+        </button>
+        <form class="thing-form" ng-show="addToday">
+          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
+          <button type="submit" class="btn btn-primary" ng-click="addThing('today')">Add New</button>
+        </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:todayFilter">
-          <h4 class="list-group-item-heading">{{thing.name}}</h4>
+          <h4 class="list-group-item-heading">{{thing.name}}
+            <button type="button" class="close" ng-click="deleteThing(thing)">
+              <span class="glyphicon glyphicon-check"/>
+            </button>
+          </h4>
         </a>
       </div>
       <div class="list-group" >
         <span class="label label-default">Week</span>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:weekFilter" >
-          <h4 class="list-group-item-heading">{{thing.name}}  {{thing.date | date:'fullDate'}}</h4>
+          <h4 class="list-group-item-heading">{{thing.name}}
+            <button type="button" class="close" ng-click="deleteThing(thing)">
+              <span class="glyphicon glyphicon-check"/>
+            </button>
+          </h4>
         </a>
       </div>
       <!--<ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">-->
       <!--<li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>-->
       <!--</ul>-->
+    </div>
   </div>
-</div>
-  <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-      <input type="date" class="form-control" ng-model="newDate">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-      </span>
-    </p>
-  </form>
+
+
+
 
   <footer class="footer">
-  <div class="container">
+    <div class="container">
       <p>Angular Fullstack v2.0.13 |
         <a href="http://jhbang8917.cafe24.com/">Dennis Bang</a> |
-  </div>
-</footer>
+    </div>
+  </footer>

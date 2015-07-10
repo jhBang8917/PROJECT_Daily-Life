@@ -7,7 +7,7 @@ var ThingSchema = new Schema({
   name: String,
   info: String,
   date: Date,
-  priority : ['high','normal'],
+  priority : String,//우선순위 : high/normal
   active: Boolean
 });
 

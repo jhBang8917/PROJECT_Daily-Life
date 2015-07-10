@@ -3,21 +3,50 @@
 angular.module('dailyLifeApp')
   .controller('MainCtrl', function ($scope ,$http, socket) {
     $scope.awesomeThings = [];
+    $scope.priority = {value:'normal'};
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('thing', $scope.awesomeThings);//실시간 업데이트 가능한이유??
     });
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
+    $scope.show = function(form){
+      $scope[form] = !$scope[form];
+    };
+
+    $scope.addThing = function(opt) {
+      if($scope.newThing === '')
         return;
-      }
-      $http.post('/api/things', {
-        name: $scope.newThing,
-        date: $scope.newDate
-      });
-      $scope.newThing = '';
+
+        switch (opt){
+          case 'must':
+            $http.post('/api/things', {
+              name: $scope.newThing,
+              date: moment().format('L'),
+              priority : 'high'
+            });
+            $scope.newThing = '';
+            break;
+
+          case 'today':
+            $http.post('/api/things', {
+              name: $scope.newThing,
+              date: moment().format('L')
+            });
+            $scope.newThing = '';
+            break;
+
+          default :
+            $http.post('/api/things', {
+              name: $scope.newThing,
+              date: $scope.newDate,
+              priority : $scope.priority.value
+            });
+            $scope.newThing = '';
+            break;
+        }
+
+
     };
 
     $scope.deleteThing = function(thing) {
@@ -29,34 +58,34 @@ angular.module('dailyLifeApp')
     });
 
     $scope.priorityFilter = function(thing){
-          return thing.priority=="high";
+      return thing.priority=="high";
     };
     $scope.weekFilter = function(thing){
-          var nextWeek = moment().add(7,'d');
-          //console.log("일주일후: "+ nextWeek.format('L'));
-          return moment(moment(thing.date).format('L')).isBetween(moment().format('L'),nextWeek.format('L'));
+      var nextWeek = moment().add(7,'d');
+      //console.log("일주일후: "+ nextWeek.format('L'));
+      return moment(moment(thing.date).format('L')).isBetween(moment().format('L'),nextWeek.format('L'));
     };
     $scope.todayFilter = function(thing){
-          //console.log(moment(thing.date).format('L') +"&&&&&&&"+new Date().getDate());
-          return moment(thing.date).format('L') == moment().format('L');
+      //console.log(moment(thing.date).format('L') +"&&&&&&&"+new Date().getDate());
+      return moment(thing.date).format('L') == moment().format('L');
     };
   });
-  //
-  //.filter('thingFilter',function(){
-  //  return function(thing, status) {
-  //    switch (status) {
-  //      case "priority":
-  //        break;
-  //
-  //      case "week":
-  //        break;
-  //
-  //      case "today":
-  //          console.log(new Date(thing.date).toLocaleDateString()+"&&&&&&"+new Date().toLocaleDateString());
-  //
-  //        if(new Date(thing.date).toLocaleDateString() === new Date().toLocaleDateString())
-  //          return thing;
-  //        break;
-  //    }
-  //  }
-  //});
+//
+//.filter('thingFilter',function(){
+//  return function(thing, status) {
+//    switch (status) {
+//      case "priority":
+//        break;
+//
+//      case "week":
+//        break;
+//
+//      case "today":
+//          console.log(new Date(thing.date).toLocaleDateString()+"&&&&&&"+new Date().toLocaleDateString());
+//
+//        if(new Date(thing.date).toLocaleDateString() === new Date().toLocaleDateString())
+//          return thing;
+//        break;
+//    }
+//  }
+//});
