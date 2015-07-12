@@ -7,7 +7,8 @@ var ThingSchema = new Schema({
   name: String,
   info: String,
   date: Date,
-  priority : String,//우선순위 : high/normal
+  priority : {type:String, default:'normal'},//우선순위 : high/normal
+  dayPlan : String, //시간대 : morning/afternoon/night
   active: Boolean
 });
 
