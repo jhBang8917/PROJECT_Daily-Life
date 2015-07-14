@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dailyLifeApp')
-.controller('ScheduleCtrl', function($scope){
+.controller('ScheduleCtrl', function($scope, $http, socket){
     /* config object */
     $scope.uiConfig = {
       calendar:{
@@ -17,7 +17,18 @@ angular.module('dailyLifeApp')
         eventResize: $scope.alertOnResize
       }
     };
+    $scope.events = [];
 
-    $scope.eventSources = [];
-});
+    $http.get('/api/things').success(function(data) {
+      //$scope.events = awesomeThings;
+      //socket.syncUpdates('thing', $scope.events);//실시간 업데이트 가능한이유??
+      for(var i = 0; i < data.length; i++)
+      {
+        $scope.events[i] = {id:data[i]._id, title: data[i].name,start: new Date(data[i].date), end: new Date(data[i].date),allDay: true};
+      }
+      console.log($scope.events);
+    });
+    $scope.eventSources = [$scope.events];
+
+  });
 

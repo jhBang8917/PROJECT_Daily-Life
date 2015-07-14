@@ -75,7 +75,8 @@ angular.module('dailyLifeApp')
     };
     $scope.todayFilter = function(thing){
       //console.log(moment(thing.date).format('L') +"&&&&&&&"+new Date().getDate());
-      return moment(thing.date).format('L') == moment().format('L') && thing.priority=='normal';
+      console.log(thing.date);
+      return thing.date!==undefined&&moment(thing.date).format('L') == moment().format('L') && thing.priority=='normal';
     };
   })
 
