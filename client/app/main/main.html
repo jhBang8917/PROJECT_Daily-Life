@@ -4,6 +4,7 @@
   <div class="container">
     <h1>Daily Life</h1>
     <p class="lead">Angular Fullstack Generator을 활용해 프로젝트 시작</p>
+    <a href="/dayPlanner"><button>주 계획 플래너 작동</button></a>
     <!--<img src="assets/images/yeoman.png" alt="I'm Yeoman">-->
   </div>
 </header>
@@ -30,7 +31,7 @@
           <!--<button type="submit" class="btn btn-primary" ng-repeat="thing in awesomeThings | filter:priorityFilter">-->
               <!--{{thing.name}}-->
           <!--</button>-->
-          <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing >
+          <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing>
             <h6  class="list-group-item-heading" drag-thing >{{thing.name}}</h6>
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>

@@ -61,12 +61,13 @@ angular.module('dailyLifeApp')
 
     $scope.dayPlanFilter = function(time){
       return function(thing){
-        return thing.dayPlan==time && moment(thing.date).format('L') == moment().format('L');
+        //console.log(moment().format('L'));
+        return thing.dayPlan===time && moment(thing.date).format('L') === moment().format('L');
       }
     };
 
     $scope.priorityFilter = function(thing){
-      return thing.priority=='high';
+      return thing.priority=='high'&& moment(thing.date).format('L') === moment().format('L');
     };
     $scope.weekFilter = function(thing){
       var nextWeek = moment().add(7,'d');
@@ -75,7 +76,7 @@ angular.module('dailyLifeApp')
     };
     $scope.todayFilter = function(thing){
       //console.log(moment(thing.date).format('L') +"&&&&&&&"+new Date().getDate());
-      console.log(thing.date);
+      //console.log(thing.date);
       return thing.date!==undefined&&moment(thing.date).format('L') == moment().format('L') && thing.priority=='normal';
     };
   })

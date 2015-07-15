@@ -2,5 +2,19 @@
 
 
 <div class="container">
-  <h4>일기장 page</h4>
+  <h4>일기장</h4>
+
+
+  	<form class="form-group">
+      <legend>{{today | amDateFormat:'dddd, MMMM Do YYYY'}}</legend>
+      <span>날씨정보...</span>
+      <textarea rows="10" class="form-control" ng-model="diaryContent" placeholder="오늘의 일기"></textarea>
+      <input type="text" class="form-control" placeholder="오늘의 다짐" ng-model="diaryTodayPromise">
+  	<button type="submit" class="btn btn-primary" ng-click="addDiary()">Submit</button>
+  </form>
+
+  <ul class="list-group">
+  	<li class="list-group-item" ng-repeat="diary in allDiary">{{diary.date | amDateFormat:'dddd, MMMM Do YYYY'}}</li>
+  </ul>
+
 </div>

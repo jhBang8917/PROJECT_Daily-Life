@@ -7,7 +7,8 @@ angular.module('dailyLifeApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ui.calendar'
+  'ui.calendar',
+  'angularMoment'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
