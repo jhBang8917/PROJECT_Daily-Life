@@ -2,6 +2,12 @@
 
 
 <div class="container">
-  <h4>schedule page</h4>
-  <div ui-calendar ng-model="eventSources"></div>
+  <h4>schedule page : {{message}}</h4>
+  <div ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
 </div>
+<script type="text/ng-template" id="modalTemplate.html">
+  <form class="thing-form">
+    <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
+    <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
+  </form>
+</script>

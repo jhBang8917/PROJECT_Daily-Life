@@ -32,7 +32,7 @@
               <!--{{thing.name}}-->
           <!--</button>-->
           <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.name}}</h6>
+            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
@@ -40,7 +40,7 @@
         </td>
   			<td drop-thing="afternoon">
           <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('afternoon')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.name}}</h6>
+            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
@@ -48,7 +48,7 @@
         </td>
   			<td drop-thing="night">
           <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('night')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.name}}</h6>
+            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
@@ -90,7 +90,7 @@
           <button type="submit" class="btn btn-primary" ng-click="addThing('must')">Add New</button>
         </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings | filter:priorityFilter" drag-thing >
-          <h4 class="list-group-item-heading" >{{thing.name}}
+          <h4 class="list-group-item-heading" >{{thing.title}}
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
@@ -108,7 +108,7 @@
           <button type="submit" class="btn btn-primary" ng-click="addThing('today')">Add New</button>
         </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:todayFilter" drag-thing  >
-          <h4 class="list-group-item-heading" >{{thing.name}}
+          <h4 class="list-group-item-heading" >{{thing.title}}
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
@@ -118,7 +118,7 @@
       <div class="list-group" >
         <span class="label label-default">Week</span>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:weekFilter" drag-thing>
-          <h4 class="list-group-item-heading">{{thing.name}}
+          <h4 class="list-group-item-heading">{{thing.title}}
             <button type="button" class="close" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>

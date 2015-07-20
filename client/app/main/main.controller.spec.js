@@ -22,8 +22,13 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of things to the scope', function () {
-    $httpBackend.flush();
-    expect(scope.awesomeThings.length).toBe(4);
+  it('날 비교', function () {
+    var thing = {
+      title : '테스트 타이틀',
+      start: moment().add(-7,'d').format('L'),
+      end: moment().add(7, 'd').format('L')
+    }
+    scope.addThing('',thing);
+    console.log(thing.start +'<-시작 끝->'+thing.end);
   });
 });
