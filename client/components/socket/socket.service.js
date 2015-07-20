@@ -47,7 +47,7 @@ angular.module('dailyLifeApp')
           } else {
             array.push(item);
           }
-
+          //console.log(item);
           cb(event, item, array);
         });
 
@@ -55,6 +55,7 @@ angular.module('dailyLifeApp')
          * Syncs removed items on 'model:remove'
          */
         socket.on(modelName + ':remove', function (item) {
+          //console.log(array);
           var event = 'deleted';
           _.remove(array, {_id: item._id});
           cb(event, item, array);

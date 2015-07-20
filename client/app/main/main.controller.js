@@ -16,15 +16,16 @@ angular.module('dailyLifeApp')
       $scope[form] = !$scope[form];
     };
 
-    $scope.addThing = function(opt) {
+    $scope.addThing = function(opt, thing) {
       if($scope.newThing === '')
         return;
 
       switch (opt){
         case 'must':
           $http.post('/api/things', {
-            name: $scope.newThing,
-            date: moment().format('L'),
+            title: $scope.newThing,
+            start: moment().format('L'),
+            end: moment().format('L'),
             priority : 'high'
           });
           $scope.newThing = '';
@@ -32,20 +33,16 @@ angular.module('dailyLifeApp')
 
         case 'today':
           $http.post('/api/things', {
-            name: $scope.newThing,
-            date: moment().format('L')
+            title: $scope.newThing,
+            start: moment().format('L'),
+            end: moment().format('L')
           });
           $scope.newThing = '';
           break;
 
-        //default :
-        //  $http.post('/api/things', {
-        //    name: $scope.newThing,
-        //    date: $scope.newDate,
-        //    priority : $scope.priority.value
-        //  });
-        //  $scope.newThing = '';
-        //  break;
+        default :
+          $http.post('/api/things', thing);
+          break;
       }
 
 
@@ -61,23 +58,22 @@ angular.module('dailyLifeApp')
 
     $scope.dayPlanFilter = function(time){
       return function(thing){
-        //console.log(moment().format('L'));
-        return thing.dayPlan===time && moment(thing.date).format('L') === moment().format('L');
+        if(thing.start!==undefined && thing.end!==undefined)
+          return thing.dayPlan===time && moment(thing.start).format('L') <= moment().format('L') && moment(thing.end).format('L') >= moment().format('L');
       }
     };
 
     $scope.priorityFilter = function(thing){
-      return thing.priority=='high'&& moment(thing.date).format('L') === moment().format('L');
+      if(thing.start!==undefined && thing.end!==undefined)
+        return thing.priority==='high'&& moment(thing.start).format('L') <= moment().format('L') && moment(thing.end).format('L') >= moment().format('L');
+    };
+    $scope.todayFilter = function(thing){
+      if(thing.start!==undefined && thing.end!==undefined){
+        return thing.priority==='normal'&&moment(thing.start).format('L') <= moment().format('L') && moment(thing.end).format('L') >= moment().format('L');}
     };
     $scope.weekFilter = function(thing){
       var nextWeek = moment().add(7,'d');
-      //console.log("일주일후: "+ nextWeek.format('L'));
-      return moment(moment(thing.date).format('L')).isBetween(moment().format('L'),nextWeek.format('L'));
-    };
-    $scope.todayFilter = function(thing){
-      //console.log(moment(thing.date).format('L') +"&&&&&&&"+new Date().getDate());
-      //console.log(thing.date);
-      return thing.date!==undefined&&moment(thing.date).format('L') == moment().format('L') && thing.priority=='normal';
+      return  moment(moment(thing.start).format('L')).isBetween(moment().format('L'),nextWeek.format('L'))||moment(moment(thing.end).format('L')).isBetween(moment().format('L'),nextWeek.format('L'));
     };
   })
 
@@ -136,28 +132,33 @@ angular.module('dailyLifeApp')
           switch(attr.dropThing){
             case 'highPriority':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
-                date: moment().format('L'),
+                start: moment().format('L'),
+                end: moment().format('L'),
                 priority : 'high'
               });
               break;
             case 'today':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
-                date: moment().format('L'),
+                start: moment().format('L'),
+                end: moment().format('L'),
                 priority : 'normal'
               });
               break;
             case 'morning':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
+                allDay : false,
                 dayPlan : 'morning'
               });
               break;
             case 'afternoon':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
+                allDay : false,
                 dayPlan : 'afternoon'
               });
               break;
             case 'night':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
+                allDay : false,
                 dayPlan : 'night'
               });
               break;
