@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Diary = require('./diary.model.js');
+var moment = require('moment');
 
 // Get list of things
 exports.index = function(req, res) {
@@ -23,6 +24,15 @@ exports.index = function(req, res) {
 // Get a single thing
 exports.show = function(req, res) {
   Diary.findById(req.params.id, function (err, thing) {
+    if(err) { return handleError(res, err); }
+    if(!thing) { return res.send(404); }
+    return res.json(thing);
+  });
+};
+// 어제 날짜 정보만 가져온다.
+exports.promiseShow = function(req, res) {
+  console.log(moment().subtract(1,'d').format('l'));
+  Diary.find({date : moment().subtract(1,'d').format('l')}, function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     return res.json(thing);

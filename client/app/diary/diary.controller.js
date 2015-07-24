@@ -7,7 +7,7 @@ angular.module('dailyLifeApp')
 
     $http.get('/api/diary').success(function(allDiary) {
       $scope.allDiary = allDiary;
-      socket.syncUpdates('diary', $scope.allDiary);//실시간 업데이트 가능한이유??
+      socket.syncUpdates('diary', $scope.allDiary);//socket.io 통해 실시간 업데이트 가능
     });
 
     $scope.addDiary = function(){

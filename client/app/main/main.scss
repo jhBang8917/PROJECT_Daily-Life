@@ -13,6 +13,53 @@
     letter-spacing: -1px;
 }
 
+//.todo-check {
+//  float: left;
+//  font-size: 21px;
+//  font-weight: bold;
+//  line-height: 1;
+//  color: #000;
+//  text-shadow: 0 1px 0 #fff;
+//  filter: alpha(opacity=20);
+//  opacity: .2;
+//}
+//
+//.todo-check:hover,
+//.todo-check:focus {
+//  color: #000;
+//  text-decoration: none;
+//  cursor: pointer;
+//  filter: alpha(opacity=50);
+//  opacity: .5;
+//}
+//
+//
+//button.todo-check{
+//  margin-right: 10px;
+//  -webkit-appearance: none;
+//  padding: 0;
+//  cursor: pointer;
+//  background: transparent;
+//  border: 0;
+//}
+
+.todo-check{
+  @extend .close;
+  float: left;
+}
+button.todo-check{
+  margin-right : 10px;
+}
+
+.priority{
+  @extend .close;
+  opacity: .6;
+}
+.priority:hover,
+.priority:focus{
+    opacity: 1;
+}
+
 .hero-unit {
     position: relative;
     padding: 30px 15px;
@@ -32,3 +79,4 @@
 .child-elements {
   pointer-events: none;
 }
+

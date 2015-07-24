@@ -9,53 +9,68 @@
   </div>
 </header>
 <div class="container">
-  <h5 class="page-header">어제의 다짐 <a href="/diary"><span class="glyphicon glyphicon-book"/></a></h5>
+  <h2 class="page-header"> Yesterday's Promise <a href="/diary"><span class="glyphicon glyphicon-book"/></a></h2>
   <div class="alert alert-success">
-    <strong>오늘은 뭐먹지</strong>
+    <strong>{{todayPromise}}</strong>
   </div>
 </div>
 
 <div class="container">
-  <h5 class="page-header">Today Plan</h5>
+  <h2 class="page-header">Today Plan</h2>
   <table class="table table-bordered table-hover">
-  	<thead>
-  		<tr>
-  			<th>오전</th>
-  			<th>오후</th>
-  			<th>저녁</th>
-  		</tr>
-  	</thead>
-  	<tbody>
-  		<tr>
-  			<td drop-thing="morning">
-          <!--<button type="submit" class="btn btn-primary" ng-repeat="thing in awesomeThings | filter:priorityFilter">-->
-              <!--{{thing.name}}-->
-          <!--</button>-->
-          <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+    <thead>
+    <tr>
+      <th class="col-md-4">오전</th>
+      <th class="col-md-4">오후</th>
+      <th class="col-md-4">저녁</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td drop-thing="morning">
+        <!--<button type="submit" class="btn btn-primary" ng-repeat="thing in awesomeThings | filter:priorityFilter">-->
+        <!--{{thing.name}}-->
+        <!--</button>-->
+        <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing>
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
-          </a>
-        </td>
-  			<td drop-thing="afternoon">
-          <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('afternoon')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
+            </button>
+          </h4>
+        </a>
+      </td>
+      <td drop-thing="afternoon">
+        <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('afternoon')" drag-thing>
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
-          </a>
-        </td>
-  			<td drop-thing="night">
-          <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('night')" drag-thing>
-            <h6  class="list-group-item-heading" drag-thing >{{thing.title}}</h6>
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
+            </button>
+          </h4>
+        </a>
+      </td>
+      <td drop-thing="night">
+        <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('night')" drag-thing>
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
-          </a>
-        </td>
-  		</tr>
-  	</tbody>
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
+            </button>
+          </h4>
+        </a>
+      </td>
+    </tr>
+    </tbody>
   </table>
 </div>
 
@@ -67,60 +82,66 @@
     <div class="col-lg-12">
       <h2 class="page-header">To-Do <a href="/schedule"><span class="glyphicon glyphicon-calendar"/></a></h2>
       <!--<form class="thing-form">-->
-        <!--<label>빠른등록</label>-->
-        <!--<p class="input-group">-->
+      <!--<label>빠른등록</label>-->
+      <!--<p class="input-group">-->
 
-          <!--<input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">-->
-          <!--<input type="date" class="form-control" ng-model="newDate">-->
-          <!--<input type="checkbox" ng-model="priority.value" ng-true-value="'high'" ng-false-value="'normal'">-->
-           <!--<span class="input-group-btn">-->
-        <!--<button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>-->
+      <!--<input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">-->
+      <!--<input type="date" class="form-control" ng-model="newDate">-->
+      <!--<input type="checkbox" ng-model="priority.value" ng-true-value="'high'" ng-false-value="'normal'">-->
+      <!--<span class="input-group-btn">-->
+      <!--<button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>-->
       <!--</span>-->
-        <!--</p>-->
+      <!--</p>-->
       <!--</form>-->
 
       <div class="list-group" drop-thing="highPriority">
-        <span class="label label-warning">Must</span>
-        <button type="button" ng-click="show('addMust')">
-          <span class="glyphicon glyphicon-plus-sign"/>
-        </button>
+        <h3><span class="label label-warning">Must</span></h3>
 
-        <form class="thing-form" ng-show="addMust">
-          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-          <button type="submit" class="btn btn-primary" ng-click="addThing('must')">Add New</button>
+        <form class="thing-form" ng-submit="addThing('must')">
+          <input type="text" class="form-control" placeholder="오늘 꼭 해야할 일" ng-model="mustToDo"  ng-keyup="$event.keyCode == 13 && addThing('must')">
         </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings | filter:priorityFilter" drag-thing >
-          <h4 class="list-group-item-heading" >{{thing.title}}
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
+            </button>
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
             </button>
           </h4>
         </a>
 
       </div>
-      <div class="list-group" drop-thing="today">
-        <span class="label label-primary">Today</span>
-        <button type="button" ng-click="show('addToday')">
-          <span class="glyphicon glyphicon-plus-sign"/>
-        </button>
-        <form class="thing-form" ng-show="addToday">
-          <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-          <button type="submit" class="btn btn-primary" ng-click="addThing('today')">Add New</button>
+      <div class="list-group" drop-thing="today" style="margin-top: 50px">
+        <h3><span class="label label-primary">Today</span></h3>
+
+        <form class="thing-form" ng-submit="addThing('today')">
+          <input type="text" class="form-control" placeholder="오늘 해야할 일" ng-model="todayToDo"  ng-keyup="$event.keyCode == 13 && addThing('today')">
         </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:todayFilter" drag-thing  >
-          <h4 class="list-group-item-heading" >{{thing.title}}
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
+            </button>
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
             </button>
           </h4>
         </a>
       </div>
-      <div class="list-group" >
-        <span class="label label-default">Week</span>
+      <div class="list-group" style="margin-top:50px;">
+        <h3><span class="label label-default">Week</span></h3>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:weekFilter" drag-thing>
-          <h4 class="list-group-item-heading">{{thing.title}}
-            <button type="button" class="close" ng-click="deleteThing(thing)">
+          <h4 class="list-group-item-heading" >
+            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
               <span class="glyphicon glyphicon-check"/>
+            </button>
+            {{thing.title}}
+            <button type="button" class="priority" ng-click="priorityThing(thing)">
+              <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
             </button>
           </h4>
         </a>

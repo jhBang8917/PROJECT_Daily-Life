@@ -2,7 +2,6 @@
 
 angular.module('dailyLifeApp')
   .controller('ScheduleCtrl', function($scope, $http, socket, $compile,uiCalendarConfig, $modal){
-    /* config object */
 
     $scope.calendarDayClick = function(date, jsEvent, view){
         var modalInstance = $modal.open({
@@ -26,28 +25,48 @@ angular.module('dailyLifeApp')
     };
 
     $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
-      //console.log(event._id);
-      console.log(moment.utc(event.end));
+      //console.log(event.start);
       $http.put('/api/things/' + event._id,{
         start : event.start.format('L'),
-        end : event.end.format('L')
+        end : event.start.format('L')
       });
     };
 
     $scope.alertOnResize = function( event, delta, revertFunc, jsEvent, ui, view ) {
-        console.log(event.start.format('L')+event.end.format('L'));
+        //console.log(event.end);
       $http.put('/api/things/' + event._id,{
         start : event.start.format('L'),
-        end : event.end.format('L')
+        end : event.end.subtract(1,'d').format('L')
       });
-    }
+    };
 
+    /*
+    * 렌더링까지 하면 속도가 느려진다고 생각됨
+    * */
+    //$scope.calendarEventRender = function( event, element, view ) {
+    // if(event.priority==='high')
+    //    event.backgroundColor = 'red';
+    //}
+
+    //$scope.renderView = function(view){
+    //  var date = new Date(view.calendar.getDate());
+    //  $scope.currentDate = date.toDateString();
+    //    console.log('Page render with date '+ $scope.currentDate);
+    //};
+
+    //$scope.extraEventSignature = function(event){
+    //  console.log('event change : ' + event);
+    //}
+
+    $scope.events = [];
+
+    /* config object */
     $scope.uiConfig = {
       calendar:{
         height: 450,
         editable: true,
         header:{
-          left: 'month basicWeek basicDay agendaWeek agendaDay',
+          left: 'month basicWeek basicDay',
           center: 'title',
           right: 'today prev,next'
         },
@@ -55,19 +74,21 @@ angular.module('dailyLifeApp')
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
         dayClick: $scope.calendarDayClick
+        //eventRender : $scope.calendarEventRender
+        //viewRender: $scope.renderView
       }
     };
-    $scope.events = [];
-
-
 
     $http.get('/api/things').success(function(data) {
-      //뭔가 더 간단한 방법이 있을거 같다.
+      //뭔가 더 간단한 방법이 있을거 같다. update 이
       for(var i = 0; i < data.length; i++)
       {
-        $scope.events[i] = {_id:data[i]._id, title: data[i].title ,start: new Date(data[i].start), end: new Date(data[i].end), allDay: data[i].allDay};
-        if(data[i].priority==='high')
-          $scope.events[i].backgroundColor = 'red';
+        /*
+        * stick : true --> 월 변경할때 사라지는 거 방지
+        * */
+        $scope.events[i] = {_id:data[i]._id, title: data[i].title ,start: new Date(data[i].start), end: new Date(data[i].end), allDay: data[i].allDay, priority : data[i].priority ,stick:true};
+        if($scope.events[i].priority==='high')
+           $scope.events[i].backgroundColor = 'red';
       }
       //console.log($scope.events);
 
@@ -86,7 +107,10 @@ angular.module('dailyLifeApp')
         if(event==='created'||event==='updated'){
           //console.log('created');
           //console.log(item);
-          array[array.indexOf(item)] = {_id:item._id, title: item.title,start: new Date(item.start), end: new Date(item.end),allDay: item.allDay};
+          var index = array.indexOf(item);
+          array[index] = {_id:item._id, title: item.title,start: new Date(item.start), end: new Date(item.end),allDay: item.allDay, priority : item.priority , stick:true};
+          if(array[index].priority==='high')
+            array[index].backgroundColor = 'red';
           $scope.eventSources = [array];
         }else{
           $scope.eventSources = [array];
@@ -96,6 +120,7 @@ angular.module('dailyLifeApp')
 
 
     });
+
     $scope.eventSources = [$scope.events];
 
 

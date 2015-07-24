@@ -12,37 +12,58 @@ angular.module('dailyLifeApp')
       socket.syncUpdates('thing', $scope.awesomeThings);//실시간 업데이트 가능한이유??
     });
 
+    $http.get('/api/diary/promise/yesterday').success(function(diary) {
+      $scope.todayPromise = diary[0].todayPromise;
+    });
+
     $scope.show = function(form){
       $scope[form] = !$scope[form];
     };
 
     $scope.addThing = function(opt, thing) {
-      if($scope.newThing === '')
-        return;
+
 
       switch (opt){
         case 'must':
+          if($scope.mustToDo === '')
+            return;
           $http.post('/api/things', {
-            title: $scope.newThing,
+            title: $scope.mustToDo,
             start: moment().format('L'),
             end: moment().format('L'),
             priority : 'high'
           });
-          $scope.newThing = '';
+          $scope.mustToDo = '';
           break;
 
         case 'today':
+          if($scope.todayToDo === '')
+            return;
           $http.post('/api/things', {
-            title: $scope.newThing,
+            title: $scope.todayToDo,
             start: moment().format('L'),
             end: moment().format('L')
           });
-          $scope.newThing = '';
+          $scope.todayToDo = '';
           break;
 
         default :
           $http.post('/api/things', thing);
           break;
+      }
+
+
+    };
+
+    $scope.priorityThing = function(thing){
+      if(thing.priority =='normal'){
+        $http.put('/api/things/' + thing._id,{
+          priority : 'high'
+        });
+      }else{
+        $http.put('/api/things/' + thing._id,{
+          priority : 'normal'
+        });
       }
 
 
