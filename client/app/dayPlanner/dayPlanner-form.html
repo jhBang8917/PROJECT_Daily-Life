@@ -1,11 +1,9 @@
 <div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
 
-    <progressbar class="progress-striped active" value="50"></progressbar>
+    <progressbar class="progress-striped active" value="dynamic"></progressbar>
 
-<div id="status-buttons" class="text-center">
-  <a ui-sref-active="active" ui-sref=".first"><span>1</span></a>
-  <a ui-sref-active="active" ui-sref=".second"><span>2</span></a>
-</div>
 
 <div ui-view></div>
+
+<a ui-sref=".step({page:{{pageValue}}})"><span class="glyphicon glyphicon-chevron-right"></span></a>
 

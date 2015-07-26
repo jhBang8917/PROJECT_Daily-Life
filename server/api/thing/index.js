@@ -7,6 +7,8 @@ var router = express.Router();
 
 router.get('/', controller.index);// api/thing 디렉토리 아래에 있으므로 '/' get / 오면 controller.index실행
 router.get('/:id', controller.show);
+router.get('/query/notComplete', controller.showNotComplete);
+router.get('/query/weekThing', controller.showWeekThing);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);

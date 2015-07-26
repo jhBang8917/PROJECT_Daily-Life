@@ -31,7 +31,7 @@ exports.show = function(req, res) {
 };
 // 어제 날짜 정보만 가져온다.
 exports.promiseShow = function(req, res) {
-  console.log(moment().subtract(1,'d').format('l'));
+  //console.log(moment().subtract(1,'d').format('l'));
   Diary.find({date : moment().subtract(1,'d').format('l')}, function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }

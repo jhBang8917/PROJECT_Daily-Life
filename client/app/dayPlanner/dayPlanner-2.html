@@ -1,0 +1,23 @@
+
+<div class="container">
+
+  <h1>이번 주에 예정된 스케줄입니다.</h1>
+  <h1>오늘로 이동하거나 추가하실 스케줄이 있으신가요?</h1>
+
+</div>
+
+<div class="container" style="margin-top: 50px">
+  <form class="thing-form" ng-submit="addThing()">
+    <input type="text" class="form-control" placeholder="오늘 추가할 일" ng-model="todayToDo"  ng-keyup="$event.keyCode == 13 && addThing()">
+  </form>
+  <a href="#"  class="list-group-item" ng-repeat="thing in weekThing | filter : weekThingFilter">
+    <h4 class="list-group-item-heading" >
+      {{thing.title}}
+      <button type="button" class="close" ng-click="moveThingToday(thing)">
+        <span class="glyphicon glyphicon-ok"/>
+      </button>
+    </h4>
+  </a>
+</div>
+
+

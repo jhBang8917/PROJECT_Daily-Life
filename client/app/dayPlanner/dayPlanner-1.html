@@ -1,0 +1,20 @@
+
+<div class="container">
+
+  <h1>오늘 하루도 힘내세요~!!</h1>
+  <h1>완료하지 않은 할 일 중 오늘 할일이 있으신가요?</h1>
+
+</div>
+
+<div class="container" style="margin-top: 50px">
+  <a href="#"  class="list-group-item" ng-repeat="thing in notCompleteThing | filter : notCompleteFilter">
+    <h4 class="list-group-item-heading" >
+      {{thing.title}}
+      <button type="button" class="close" ng-click="moveThingToday(thing)">
+        <span class="glyphicon glyphicon-ok"/>
+      </button>
+    </h4>
+  </a>
+</div>
+
+

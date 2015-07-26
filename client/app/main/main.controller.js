@@ -93,8 +93,8 @@ angular.module('dailyLifeApp')
         return thing.priority==='normal'&&moment(thing.start).format('L') <= moment().format('L') && moment(thing.end).format('L') >= moment().format('L');}
     };
     $scope.weekFilter = function(thing){
-      var nextWeek = moment().add(7,'d');
-      return  moment(moment(thing.start).format('L')).isBetween(moment().format('L'),nextWeek.format('L'))||moment(moment(thing.end).format('L')).isBetween(moment().format('L'),nextWeek.format('L'));
+      var nextWeek = moment().add(8,'d').startOf('day');
+      return  moment(moment(thing.start).startOf('day')).isBetween(moment().startOf('day'),nextWeek)||moment(moment(thing.end).startOf('day')).isBetween(moment().startOf('day'),nextWeek);
     };
   })
 

@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Thing = require('./thing.model');
+var moment = require('moment');
 
 // Get list of things
 exports.index = function(req, res) {
@@ -23,6 +24,25 @@ exports.index = function(req, res) {
 // Get a single thing
 exports.show = function(req, res) {
   Thing.findById(req.params.id, function (err, thing) {
+    if(err) { return handleError(res, err); }
+    if(!thing) { return res.send(404); }
+    return res.json(thing);
+  });
+};
+//완료하지 않은 목록 보여주기
+exports.showNotComplete = function(req, res) {
+  Thing.find({active : false, end : {$lt: moment().startOf('day')}}, function (err, thing) {
+    if(err) { return handleError(res, err); }
+    if(!thing) { return res.send(404); }
+    return res.json(thing);
+  });
+};
+//week to do 보여주기
+exports.showWeekThing= function(req, res) {
+  Thing.find(
+    {active : false, $or : [{start : {$gt:moment().startOf('day'),$lte: moment().add(7,'d').startOf('day')}},
+      {end : {$gt:moment().startOf('day'),$lte: moment().add(7,'d').startOf('day')}}]}
+  , function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     return res.json(thing);

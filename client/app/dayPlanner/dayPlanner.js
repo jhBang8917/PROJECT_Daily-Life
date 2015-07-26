@@ -5,18 +5,19 @@ angular.module('dailyLifeApp')
     $stateProvider
       .state('dayPlanner', {
         url: '/dayPlanner',
-        templateUrl: 'app/dayPlanner/dayPlanner-form.html',
+        templateUrl: 'app/dayPlanner/dayPlanner-form.html'
+      })
+      .state('dayPlanner.step', { //   dayPlanner/1
+        url: '/:page',
+        templateUrl: function($stateParams){
+          return 'app/dayPlanner/dayPlanner-'+$stateParams.page+'.html';
+        },
         controller: 'DayPlannerCtrl'
       })
-      .state('dayPlanner.first', { //   dayPlanner/dayPlannerFirst
-        url: '/dayPlannerFirst',
-        templateUrl: 'app/dayPlanner/dayPlanner-first.html'
-      })
-      .state('dayPlanner.second', {
-        url: '/dayPlannerSecond',
-        templateUrl: 'app/dayPlanner/dayPlanner-second.html'
-      });
+      //.state('dayPlanner.secondstep', {
+      //  url: '/second-step',
+      //  templateUrl: 'app/dayPlanner/dayPlanner-2.html'
+      //});
 
-    $urlRouterProvider.otherwise('/dayPlanner/dayPlannerFirst');
 
   });

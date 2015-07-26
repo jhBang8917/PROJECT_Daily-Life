@@ -47,7 +47,6 @@ angular.module('dailyLifeApp')
           } else {
             array.push(item);
           }
-          //console.log(item);
           cb(event, item, array);
         });
 
