@@ -6,7 +6,7 @@ angular.module('dailyLifeApp')
     //console.log(page);
     //console.log(page+1);
     $rootScope.dynamic = page * 25;
-    $rootScope.pageValue = page + 1;
+    $scope.pageValue = page + 1;
     $scope.notCompleteThing = [];
     $scope.weekThing = [];
 

@@ -7,7 +7,7 @@ angular.module('dailyLifeApp')
         url: '/dayPlanner',
         templateUrl: 'app/dayPlanner/dayPlanner-form.html'
       })
-      .state('dayPlanner.step', { //   dayPlanner/1
+      .state('dayPlanner.step', { //   자동으로 바뀌는건가?
         url: '/:page',
         templateUrl: function($stateParams){
           return 'app/dayPlanner/dayPlanner-'+$stateParams.page+'.html';

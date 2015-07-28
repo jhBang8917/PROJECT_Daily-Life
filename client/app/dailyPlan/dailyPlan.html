@@ -1,0 +1,64 @@
+<div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
+
+<div class="container">
+  <h1>DailyPlanner</h1>
+
+  <tabset justified="true">
+    <tab ng-repeat="day in week" heading="{{day.text}}">
+      <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'" style="margin-bottom: 50px"></div> <!--네비게이션바 include-->
+      <div class="jumbotron" ng-repeat="dayPlan in weekPlan|filter:{day: day.text} | orderBy:'startTime'">
+        <h4>{{dayPlan.title}}</h4>
+        <h6>{{dayPlan.day}}</h6>
+        <h6>{{dayPlan.startTime}}</h6>
+        <h6>~</h6>
+        <h6>{{dayPlan.endTime}}</h6>
+        <p>
+          <a class="btn btn-primary btn-lg">Learn more</a>
+        </p>
+      </div>
+    </tab>
+  </tabset>
+</div>
+
+
+
+<form class="form-group">
+  <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+  <div class="btn-group">
+    <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+  </div>
+  <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
+  <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
+  <button type="submit" ng-click="addDailyPlan()">submit</button>
+</form>
+
+<!--</form>-->
+<!--<table class="table table-hover">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th>시간</th>-->
+<!--<th>월</th>-->
+<!--<th>화</th>-->
+<!--<th>수</th>-->
+<!--<th>목</th>-->
+<!--<th>금</th>-->
+<!--<th>토</th>-->
+<!--<th>일</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="dailyPlan in weekPlan">-->
+<!--<td>{{$index+6}}~{{$index+7}}</td>-->
+<!--<td>{{dailyPlan.day === 'monday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'tuesday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'wednesday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'thursday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'friday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'saturday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--<td>{{dailyPlan.day === 'sunday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+
+

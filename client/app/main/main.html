@@ -4,7 +4,7 @@
   <div class="container">
     <h1>Daily Life</h1>
     <p class="lead">Angular Fullstack Generator을 활용해 프로젝트 시작</p>
-    <a href="/dayPlanner/1"><button>주 계획 플래너 작동</button></a>
+    <a href="/dayPlanner/1"><button>일일 계획 플래너 작동</button></a>
     <!--<img src="assets/images/yeoman.png" alt="I'm Yeoman">-->
   </div>
 </header>
@@ -17,12 +17,16 @@
 
 <div class="container">
   <h2 class="page-header">Today Plan</h2>
-  <table class="table table-bordered table-hover">
+  <a href="/dailyPlan">
+    <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'"></div>
+  </a>
+
+  <table class="table table-bordered table-hover" style="margin-top: 0">
     <thead>
     <tr>
-      <th class="col-md-4">오전</th>
-      <th class="col-md-4">오후</th>
-      <th class="col-md-4">저녁</th>
+      <th class="col-md-4">Morning</th>
+      <th class="col-md-4">Afternoon</th>
+      <th class="col-md-4">Night</th>
     </tr>
     </thead>
     <tbody>
