@@ -30,7 +30,7 @@ exports.show = function(req, res) {
   });
 };
 exports.showDayPlan = function(req, res) {
-  console.log(req.params.day);
+  //console.log(req.params.day);
   DailyPlan.find({day:req.params.day},null,{sort : {startTime:1}}, function (err, dailyPlan) {
     if(err) { return handleError(res, err); }
     if(!dailyPlan) { return res.send(404); }
@@ -47,13 +47,21 @@ exports.create = function(req, res) {
 };
 
 // Updates an existing dailyPlan in the DB.
+// merge하면 값은 정확한데 원래값이랑 대치가 안된다..
+// 하나씩 삽입하면 작동하는 걸로 봐서는 lodash에 문제가 있는 것 같다.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   DailyPlan.findById(req.params.id, function (err, dailyPlan) {
     if (err) { return handleError(res, err); }
     if(!dailyPlan) { return res.send(404); }
-    var updated = _.merge(dailyPlan, req.body);
-    updated.save(function (err) {
+    dailyPlan.title = req.body.title;
+    dailyPlan.day = req.body.day;
+    dailyPlan.startTime = req.body.startTime;
+    dailyPlan.endTime = req.body.endTime;
+    //var updated = _.merge(dailyPlan, req.body);
+    //updated.markModified('updated.day');
+    //console.log(updated);
+    dailyPlan.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, dailyPlan);
     });

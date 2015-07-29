@@ -9,6 +9,7 @@ router.get('/', controller.index);// api/thing 디렉토리 아래에 있으므�
 router.get('/:id', controller.show);
 router.get('/query/notComplete', controller.showNotComplete);
 router.get('/query/weekThing', controller.showWeekThing);
+router.get('/query/todayThing', controller.showTodayThing);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);

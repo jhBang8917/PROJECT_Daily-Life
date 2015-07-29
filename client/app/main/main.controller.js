@@ -3,7 +3,7 @@
 angular.module('dailyLifeApp')
   .controller('MainCtrl', function ($scope ,$http, socket) {
     $scope.awesomeThings = [];
-    $scope.day = {text:moment().format('dddd').toLowerCase()};
+    $scope.day = {text:moment().format('dddd')};
     $scope.priority = {value:'normal'};
     $scope.popover ={
       templateUrl : 'popoverTemplate.html'

@@ -1,6 +1,6 @@
 <div ng-controller="DailyPlanBarCtrl">
   <!--max가 먹히질 않아서 개고생... 결론은 업데이트 되서 그런것이였다..-->
-  <progress ng-animate="true" max="180"  style="height: 50px; margin:0">
+  <progress max="180"  style="height: 50px; margin:0">
     <bar ng-repeat="bar in stacked" value="bar.value" type="{{bar.type}}">
       <span>
       <h5>{{bar.title}}</h5>

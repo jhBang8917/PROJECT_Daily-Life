@@ -4,8 +4,22 @@
   <h1>DailyPlanner</h1>
 
   <tabset justified="true">
-    <tab ng-repeat="day in week" heading="{{day.text}}">
-      <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'" style="margin-bottom: 50px"></div> <!--네비게이션바 include-->
+    <tab ng-repeat="day in week" heading="{{day.text}}" active="tabActive[$index]">
+      <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'" style="margin-bottom: 30px;margin-top: 30px"></div> <!--네비게이션바 include-->
+      <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">등록</button>
+      <hr>
+      <div ng-init="isCollapsed = true" collapse="isCollapsed">
+        <form class="form-group">
+          <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+          <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+          </div>
+          <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
+          <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
+          <button type="submit" ng-click="addDailyPlan()">등록</button>
+        </form>
+      </div>
+
       <div class="jumbotron" ng-repeat="dayPlan in weekPlan|filter:{day: day.text} | orderBy:'startTime'">
         <h4>{{dayPlan.title}}</h4>
         <h6>{{dayPlan.day}}</h6>
@@ -13,24 +27,29 @@
         <h6>~</h6>
         <h6>{{dayPlan.endTime}}</h6>
         <p>
-          <a class="btn btn-primary btn-lg">Learn more</a>
+          <a popover-template="planPopover.templateUrl" class="btn btn-primary btn-sm" ng-click="checkDay(dayPlan.day)">update </a>
         </p>
       </div>
     </tab>
   </tabset>
 </div>
 
-
-
-<form class="form-group">
-  <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+<script type="text/ng-template" id="popoverTemplate.html">
+  <form class="form-group">
+  <input type="text" class="form-control" ng-model="dayPlan.title"/>
   <div class="btn-group">
-    <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+    <label class="btn btn-primary btn-sm" ng-repeat="day in week"  ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
   </div>
-  <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
-  <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
-  <button type="submit" ng-click="addDailyPlan()">submit</button>
+  <input type="number" class="form-control" placeholder="시작시간" ng-model="dayPlan.startTime"/>
+  <input type="number" class="form-control" placeholder="종료시간" ng-model="dayPlan.endTime"/>
+  <button type="submit" ng-click="updateDailyPlan(dayPlan)">update</button>
 </form>
+</script>
+
+
+
+
+
 
 <!--</form>-->
 <!--<table class="table table-hover">-->

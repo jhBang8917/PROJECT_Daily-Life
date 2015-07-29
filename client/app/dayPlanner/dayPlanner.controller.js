@@ -9,6 +9,7 @@ angular.module('dailyLifeApp')
     $scope.pageValue = page + 1;
     $scope.notCompleteThing = [];
     $scope.weekThing = [];
+    $scope.todayThing = [];
 
     $http.get('api/things/query/notComplete').success(function(notCompleteThing){
       $scope.notCompleteThing = notCompleteThing;
@@ -23,10 +24,32 @@ angular.module('dailyLifeApp')
       $scope.weekThing = weekThing;
       socket.syncUpdates('thing', $scope.weekThing);
     });
+    $http.get('api/things/query/todayThing').success(function(todayThing){
+      $scope.todayThing = todayThing;
+      socket.syncUpdates('thing', $scope.todayThing);
+    });
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
+
+    $scope.priorityThing = function(thing){
+      if(thing.priority =='normal'){
+        $http.put('/api/things/' + thing._id,{
+          priority : 'high'
+        });
+      }else{
+        $http.put('/api/things/' + thing._id,{
+          priority : 'normal'
+        });
+      }
+
+
+    };
+
+    $scope.deleteThing = function(thing) {
+      $http.delete('/api/things/' + thing._id);
+    };
 
     $scope.moveThingToday = function(thing){
       $http.put('api/things/'+thing._id,{

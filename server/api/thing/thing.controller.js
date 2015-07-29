@@ -49,6 +49,17 @@ exports.showWeekThing= function(req, res) {
   });
 };
 
+exports.showTodayThing= function(req, res) {
+  Thing.find(
+    {active : false, $and : [{start : {$lte: moment().startOf('day')}},
+      {end : {$gte:moment().startOf('day')}}]}
+  , function (err, thing) {
+    if(err) { return handleError(res, err); }
+    if(!thing) { return res.send(404); }
+    return res.json(thing);
+  });
+};
+
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
   Thing.create(req.body, function(err, thing) {

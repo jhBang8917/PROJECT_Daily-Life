@@ -10,14 +10,20 @@
   <form class="thing-form" ng-submit="addThing()">
     <input type="text" class="form-control" placeholder="오늘 추가할 일" ng-model="todayToDo"  ng-keyup="$event.keyCode == 13 && addThing()">
   </form>
-  <a href="#"  class="list-group-item" ng-repeat="thing in weekThing | filter : weekThingFilter">
+  <a href="#"  class="list-group-item" ng-repeat="thing in todayThing |orderBy:'priority'">
     <h4 class="list-group-item-heading" >
+      <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+        <span class="glyphicon glyphicon-check"/>
+      </button>
       {{thing.title}}
-      <button type="button" class="close" ng-click="moveThingToday(thing)">
-        <span class="glyphicon glyphicon-ok"/>
+      <button type="button" class="priority" ng-click="priorityThing(thing)">
+        <span ng-class="{'glyphicon glyphicon-star-empty':thing.priority == 'normal','glyphicon glyphicon-star':thing.priority == 'high'}"/>
       </button>
     </h4>
   </a>
+
+  <a href="/"><button>완료</button></a>
+
 </div>
 
 
