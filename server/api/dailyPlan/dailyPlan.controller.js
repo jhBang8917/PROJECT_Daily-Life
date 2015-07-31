@@ -41,7 +41,7 @@ exports.showDayPlan = function(req, res) {
 // Creates a new dailyPlan in the DB.
 exports.create = function(req, res) {
   DailyPlan.create(req.body, function(err, dailyPlan) {
-    if(err) { return handleError(res, err); }
+    if(err) {return handleError(res, err); }
     return res.json(201, dailyPlan);
   });
 };

@@ -2,23 +2,22 @@
 
 <div class="container">
   <h1>DailyPlanner</h1>
-
+  <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">등록</button>
+  <div ng-init="isCollapsed = true" collapse="isCollapsed">
+    <form class="form-group">
+      <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+      </div>
+      <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
+      <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
+      <button type="submit" ng-click="addDailyPlan()">등록</button>
+    </form>
+  </div>
   <tabset justified="true">
     <tab ng-repeat="day in week" heading="{{day.text}}" active="tabActive[$index]">
       <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'" style="margin-bottom: 30px;margin-top: 30px"></div> <!--네비게이션바 include-->
-      <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">등록</button>
-      <hr>
-      <div ng-init="isCollapsed = true" collapse="isCollapsed">
-        <form class="form-group">
-          <input type="text" class="form-control" placeholder="title" ng-model="title"/>
-          <div class="btn-group">
-            <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
-          </div>
-          <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
-          <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
-          <button type="submit" ng-click="addDailyPlan()">등록</button>
-        </form>
-      </div>
+
 
       <div class="jumbotron" ng-repeat="dayPlan in weekPlan|filter:{day: day.text} | orderBy:'startTime'">
         <h4>{{dayPlan.title}}</h4>
