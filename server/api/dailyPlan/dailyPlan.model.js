@@ -18,7 +18,7 @@ var DailyPlanSchema = new Schema({
 * save 전에 시간 체크하는 validation
 * */
 DailyPlanSchema.pre('save', function(next){
-  console.log('pre save 진입');
+  //console.log('pre save 진입');
   for(var i =0; i < this.day.length; i++){
       mongoose.models['DailyPlan']
         .find(
@@ -30,10 +30,10 @@ DailyPlanSchema.pre('save', function(next){
         ]
       },function(err, dailyPlan){
           if(!dailyPlan.length){
-            console.log('겹치는게없습니다.');
+            //console.log('겹치는게없습니다.');
             next();}
           else{
-              console.log(dailyPlan+'과 겹칩니다');
+              //console.log(dailyPlan+'과 겹칩니다');
               next(Error('이 시간대에는 이미 계획이 존재합니다.'));
           }
         });
