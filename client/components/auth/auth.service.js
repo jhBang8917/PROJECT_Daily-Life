@@ -2,6 +2,10 @@
 
 angular.module('dailyLifeApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+
+    var safeCb = function(cb) {
+        return (angular.isFunction(cb)) ? cb : angular.noop;
+      };
     var currentUser = {};
     if($cookieStore.get('token')) {
       currentUser = User.get();
@@ -99,6 +103,27 @@ angular.module('dailyLifeApp')
        */
       getCurrentUser: function() {
         return currentUser;
+      },
+
+      getCurrentUserAsync : function(callback){
+       //var result = currentUser.$promise.then(function(data){
+       //   console.log(data._id);
+       //   return data.data;
+       //});
+       //console.log(result);
+        if (arguments.length === 0) {
+          return currentUser;
+        }
+
+        var value = (currentUser.hasOwnProperty('$promise')) ? currentUser.$promise : currentUser;
+        return $q.when(value)
+          .then(function(user) {
+            safeCb(callback)(user);
+            return user;
+          }, function() {
+            safeCb(callback)({});
+            return {};
+          });
       },
 
       /**

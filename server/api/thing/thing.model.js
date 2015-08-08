@@ -40,6 +40,7 @@ var ThingSchema = new Schema({
   *
   * */
   //active: Boolean
+  owner : {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   title : String,
   info : String,
   start : Date,
@@ -47,7 +48,7 @@ var ThingSchema = new Schema({
   priority : {type:String, default:'normal'},//우선순위 : high/normal
   allDay :{type:Boolean, default:true},
   dayPlan : String, //시간대 : morning/afternoon/evening/night
-  active: {type:Boolean, default:false},
+  complete: {type:Boolean, default:false},
   anniversary : {type:Boolean, default:false}
 
 });

@@ -1,16 +1,22 @@
 'use strict';
 
 angular.module('dailyLifeApp')
-  .controller('MainCtrl', function ($scope ,$http, socket) {
+  .controller('MainCtrl', function ($scope ,$http, socket, Auth) {
+    $scope.user = Auth.getCurrentUser();
     $scope.awesomeThings = [];
     $scope.day = {text:moment().format('dddd')};
     $scope.priority = {value:'normal'};
     $scope.popover ={
       templateUrl : 'popoverTemplate.html'
     };
-    $http.get('/api/things').success(function(awesomeThings) {
+    $http.get('/api/things/byOwnerId/'+$scope.user._id).success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);//실시간 업데이트 가능한이유??
+      socket.syncUpdates('thing', $scope.awesomeThings, function(event, item, array){
+        if(event=='updated'){
+          $http.get('/api/things').success(function(awesomeThings) {
+            $scope.awesomeThings = awesomeThings;});
+        }
+      });//실시간 업데이트
     });
 
     $http.get('/api/diary/promise/yesterday').success(function(diary) {
@@ -29,6 +35,7 @@ angular.module('dailyLifeApp')
           if($scope.mustToDo === '')
             return;
           $http.post('/api/things', {
+            owner : $scope.user._id,
             title: $scope.mustToDo,
             start: moment().format('L'),
             end: moment().format('L'),
@@ -41,6 +48,7 @@ angular.module('dailyLifeApp')
           if($scope.todayToDo === '')
             return;
           $http.post('/api/things', {
+            owner : $scope.user._id,
             title: $scope.todayToDo,
             start: moment().format('L'),
             end: moment().format('L')
@@ -70,8 +78,11 @@ angular.module('dailyLifeApp')
 
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
+    $scope.completeThing = function(thing) {
+      //$http.delete('/api/things/' + thing._id);
+      $http.put('/api/things/' + thing._id,{
+        complete : true
+      });
     };
 
     $scope.$on('$destroy', function () {

@@ -15,7 +15,15 @@ var moment = require('moment');
 
 // Get list of things
 exports.index = function(req, res) {
-  Thing.find(function (err, things) {
+  Thing.find({complete : false}, function (err, things) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, things);
+  });
+};
+
+// Get list of Things by Owner Id
+exports.indexByOwnerId = function(req, res) {
+  Thing.find({complete : false, owner : req.params.ownerId}, function (err, things) {
     if(err) { return handleError(res, err); }
     return res.json(200, things);
   });
@@ -31,7 +39,7 @@ exports.show = function(req, res) {
 };
 //완료하지 않은 목록 보여주기
 exports.showNotComplete = function(req, res) {
-  Thing.find({active : false, end : {$lt: moment().startOf('day')}}, function (err, thing) {
+  Thing.find({complete : false, end : {$lt: moment().startOf('day')}}, function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     return res.json(thing);
@@ -40,7 +48,7 @@ exports.showNotComplete = function(req, res) {
 //week to do 보여주기
 exports.showWeekThing= function(req, res) {
   Thing.find(
-    {active : false, $or : [{start : {$gt:moment().startOf('day'),$lte: moment().add(7,'d').startOf('day')}},
+    {complete : false, $or : [{start : {$gt:moment().startOf('day'),$lte: moment().add(7,'d').startOf('day')}},
       {end : {$gt:moment().startOf('day'),$lte: moment().add(7,'d').startOf('day')}}]}
   , function (err, thing) {
     if(err) { return handleError(res, err); }
@@ -51,7 +59,7 @@ exports.showWeekThing= function(req, res) {
 
 exports.showTodayThing= function(req, res) {
   Thing.find(
-    {active : false, $and : [{start : {$lte: moment().startOf('day')}},
+    {complete : false, $and : [{start : {$lte: moment().startOf('day')}},
       {end : {$gte:moment().startOf('day')}}]}
   , function (err, thing) {
     if(err) { return handleError(res, err); }

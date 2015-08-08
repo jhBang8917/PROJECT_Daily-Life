@@ -37,7 +37,7 @@
         <!--</button>-->
         <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('morning')" drag-thing>
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -50,7 +50,7 @@
       <td drop-thing="afternoon">
         <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('afternoon')" drag-thing>
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -63,7 +63,7 @@
       <td drop-thing="night">
         <a href="#"  class="list-group-item" ng-repeat="thing in awesomeThings | filter:dayPlanFilter('night')" drag-thing>
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -107,7 +107,7 @@
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings | filter:priorityFilter" drag-thing >
 
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -126,7 +126,7 @@
         </form>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:todayFilter" drag-thing  >
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -140,7 +140,7 @@
         <h3><span class="label label-default">Week</span></h3>
         <a href="#" class="list-group-item" ng-repeat="thing in awesomeThings| filter:weekFilter" drag-thing>
           <h4 class="list-group-item-heading" >
-            <button type="button" class="todo-check" ng-click="deleteThing(thing)">
+            <button type="button" class="todo-check" ng-click="completeThing(thing)">
               <span class="glyphicon glyphicon-check"/>
             </button>
             {{thing.title}}
@@ -151,7 +151,7 @@
         </a>
       </div>
       <!--<ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">-->
-      <!--<li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>-->
+      <!--<li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="completeThing(thing)">&times;</button></a></li>-->
       <!--</ul>-->
     </div>
   </div>
