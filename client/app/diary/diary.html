@@ -7,6 +7,7 @@
 
   	<form class="form-group">
       <legend>{{today | amDateFormat:'dddd, MMMM Do YYYY'}}</legend>
+      <legend>{{userId}} 의 일기장</legend>
       <span>날씨정보...</span>
       <textarea rows="10" class="form-control" ng-model="diaryContent" placeholder="오늘의 일기"></textarea>
       <input type="text" class="form-control" placeholder="오늘의 다짐" ng-model="diaryTodayPromise">
@@ -14,7 +15,7 @@
   </form>
 
   <ul class="list-group">
-  	<li class="list-group-item" ng-repeat="diary in allDiary">{{diary.date | amDateFormat:'dddd, MMMM Do YYYY'}}</li>
+  	<li class="list-group-item" ng-repeat="diary in allDiary">[ {{diary.todayPromise}} ]   {{diary.date | amDateFormat:'dddd, MMMM Do YYYY'}}</li>
   </ul>
 
 </div>

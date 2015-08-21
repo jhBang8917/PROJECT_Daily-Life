@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var DailyPlanSchema = new Schema({
+  owner : {type: mongoose.Schema.Types.ObjectId, ref:'User'},
   title : String,
   info : String,
   day : [String],
@@ -22,7 +23,8 @@ DailyPlanSchema.pre('save', function(next){
   for(var i =0; i < this.day.length; i++){
       mongoose.models['DailyPlan']
         .find(
-      {day : this.day[i],
+      { owner : this.owner,
+        day : this.day[i],
         //if((this.startTime>=dailyPlan[j].startTime&&this.startTime<dailyPlan[j].endTime)||(this.endTime>dailyPlan[j].startTime&&this.startTime<=dailyPlan[j].endTime)){
         $or: [
           {$and:[{startTime:{$lte:this.startTime}},{endTime:{$gt:this.startTime}}]},

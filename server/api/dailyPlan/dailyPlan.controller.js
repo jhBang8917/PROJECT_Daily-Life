@@ -21,6 +21,13 @@ exports.index = function(req, res) {
   });
 };
 
+exports.indexByOwnerId = function(req, res) {
+  DailyPlan.find({owner : req.params.ownerId},function (err, dailyPlans) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, dailyPlans);
+  });
+};
+
 // Get a single dailyPlan
 exports.show = function(req, res) {
   DailyPlan.findById(req.params.id, function (err, dailyPlan) {
@@ -31,7 +38,7 @@ exports.show = function(req, res) {
 };
 exports.showDayPlan = function(req, res) {
   //console.log(req.params.day);
-  DailyPlan.find({day:req.params.day},null,{sort : {startTime:1}}, function (err, dailyPlan) {
+  DailyPlan.find({owner:req.params.ownerId, day:req.params.day},null,{sort : {startTime:1}}, function (err, dailyPlan) {
     if(err) { return handleError(res, err); }
     if(!dailyPlan) { return res.send(404); }
     return res.json(dailyPlan);
@@ -81,5 +88,6 @@ exports.destroy = function(req, res) {
 };
 
 function handleError(res, err) {
-  return res.send(500, err);
+  //Error 객체이므로 err.message로 보내야 한다.
+  return res.send(500, err.message);
 }

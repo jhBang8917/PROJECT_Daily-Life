@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('dailyLifeApp')
-  .controller('DailyPlanBarCtrl', function ($scope,$http) {
-
+  .controller('DailyPlanBarCtrl', function ($scope,$http,Auth) {
+    $scope.user = Auth.getCurrentUser();
     $scope.stacked = [];
     $scope.max = 180;
     var types = ['success', 'info', 'warning', 'danger'];
 
-    $http.get('/api/dailyPlan/query/'+$scope.day.text).success(function(dayPlan) {
+    $http.get('/api/dailyPlan/query/'+$scope.user._id+'/'+$scope.day.text).success(function(dayPlan) {
         var t = 6;
        var i = 0;
       //console.log(dayPlan);

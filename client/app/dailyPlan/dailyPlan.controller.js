@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('dailyLifeApp')
-  .controller('DailyPlanCtrl', function($scope, $http){
+  .controller('DailyPlanCtrl', function($scope, $http, Auth){
+    $scope.user = Auth.getCurrentUser();
     $scope.week= [
       {text : 'Monday', enabled : false},
       {text : 'Tuesday', enabled : false},
@@ -26,19 +27,21 @@ angular.module('dailyLifeApp')
     $scope.tabActive[todayIndex] = true;
 
     // get 일주일 계획 from mongodb
-    $http.get('/api/dailyPlan').success(function(weekPlan) {
+    $http.get('/api/dailyPlan/byOwnerId/'+$scope.user._id).success(function(weekPlan) {
       $scope.weekPlan = weekPlan;
     });
 
     //post 특정플랜 to mongodb
     $scope.addDailyPlan = function(){
-
+      console.log($scope.user._id);
       $http.post('/api/dailyPlan', {
+        owner : $scope.user._id,
         title: $scope.title,
         day: enabledDay(),
         startTime : $scope.startTime,
         endTime : $scope.endTime
-      });
+      }).then(function(response){console.log('succss')},
+              function(err){window.alert(err.data)});
       //console.log(checkDay());
     }
 

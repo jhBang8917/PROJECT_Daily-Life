@@ -20,6 +20,12 @@ exports.index = function(req, res) {
     return res.json(200, things);
   });
 };
+exports.indexByOwnerId = function(req, res) {
+  Diary.find({owner : req.params.ownerId},function (err, things) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, things);
+  });
+};
 
 // Get a single thing
 exports.show = function(req, res) {
@@ -32,7 +38,7 @@ exports.show = function(req, res) {
 // 어제 날짜 정보만 가져온다.
 exports.promiseShow = function(req, res) {
   //console.log(moment().subtract(1,'d').format('l'));
-  Diary.find({date : moment().subtract(1,'d').format('l')}, function (err, thing) {
+  Diary.find({owner : req.params.ownerId,date : moment().subtract(1,'d').format('l')}, function (err, thing) {
     if(err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     return res.json(thing);

@@ -13,13 +13,13 @@ angular.module('dailyLifeApp')
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('thing', $scope.awesomeThings, function(event, item, array){
         if(event=='updated'){
-          $http.get('/api/things').success(function(awesomeThings) {
+          $http.get('/api/things/byOwnerId/'+$scope.user._id).success(function(awesomeThings) {
             $scope.awesomeThings = awesomeThings;});
         }
       });//실시간 업데이트
     });
 
-    $http.get('/api/diary/promise/yesterday').success(function(diary) {
+    $http.get('/api/diary/promise/yesterday/'+$scope.user._id).success(function(diary) {
       $scope.todayPromise = diary[0].todayPromise;
     });
 
