@@ -43,6 +43,30 @@
 //  border: 0;
 //}
 
+$dailylifecolor : black;//variable
+
+.list-group-item{
+//  background-color: lightcyan;
+}
+
+.table{
+  th{
+    text-align: center;
+  }
+  .list-group-item{
+    padding: 5px;
+    .list-group-item-heading{
+      margin : 0px;
+    }
+    button{
+      font-size: 98%;
+    }
+    h4{
+      font-size: 98%;
+    }
+  }
+}
+
 .todo-check{
   @extend .close;
   float: left;
@@ -66,7 +90,8 @@ button.todo-check{
     color: #F5F5F5;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
+    background-image: url("../assets/images/sunset-1058190.jpg");
+    background-repeat: no-repeat;
 }
 
 .footer {

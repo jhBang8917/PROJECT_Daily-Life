@@ -61,6 +61,7 @@ exports.update = function(req, res) {
   DailyPlan.findById(req.params.id, function (err, dailyPlan) {
     if (err) { return handleError(res, err); }
     if(!dailyPlan) { return res.send(404); }
+    console.log(req.body.title);
     dailyPlan.title = req.body.title;
     dailyPlan.day = req.body.day;
     dailyPlan.startTime = req.body.startTime;

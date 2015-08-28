@@ -3,20 +3,18 @@
 <header class="hero-unit" id="banner">
   <div class="container">
     <h1>Daily Life</h1>
-    <p class="lead">Angular Fullstack Generator을 활용해 프로젝트 시작</p>
-    <a href="/dayPlanner/1"><button>일일 계획 플래너 작동</button></a>
-    <!--<img src="assets/images/yeoman.png" alt="I'm Yeoman">-->
   </div>
 </header>
+
 <div class="container">
-  <h2 class="page-header"> Yesterday's Promise <a href="/diary"><span class="glyphicon glyphicon-book"/></a></h2>
+  <h2 class="page-header"><a href="/diary"><span class="glyphicon glyphicon-book"/></a> Yesterday's Promise </h2>
   <div class="alert alert-success">
     <strong>{{todayPromise}}</strong>
   </div>
 </div>
 
 <div class="container">
-  <h2 class="page-header">Today Plan</h2>
+  <h2 class="page-header"><a href="/dayPlanner/1"><span class="glyphicon glyphicon-calendar"/></a> Today Plan</h2>
   <a href="/dailyPlan">
     <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'"></div>
   </a>
@@ -24,9 +22,9 @@
   <table class="table table-bordered table-hover" style="margin-top: 0">
     <thead>
     <tr>
-      <th class="col-md-4">Morning</th>
-      <th class="col-md-4">Afternoon</th>
-      <th class="col-md-4">Night</th>
+      <th class="col-md-4 active">Morning</th>
+      <th class="col-md-4 active">Afternoon</th>
+      <th class="col-md-4 active">Night</th>
     </tr>
     </thead>
     <tbody>
@@ -84,7 +82,7 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h2 class="page-header">To-Do <a href="/schedule"><span class="glyphicon glyphicon-calendar"/></a></h2>
+      <h2 class="page-header"><a href="/schedule"><span class="glyphicon glyphicon-th-list"/></a> To-Do </h2>
       <!--<form class="thing-form">-->
       <!--<label>빠른등록</label>-->
       <!--<p class="input-group">-->

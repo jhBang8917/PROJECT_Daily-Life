@@ -1,82 +1,58 @@
 <div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
 
-<div class="container">
+<header class="function-title">
   <h1>DailyPlanner</h1>
-  <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">등록</button>
-  <div ng-init="isCollapsed = true" collapse="isCollapsed">
-    <form class="form-group">
-      <input type="text" class="form-control" placeholder="title" ng-model="title"/>
-      <div class="btn-group">
-        <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
-      </div>
-      <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
-      <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
-      <button type="submit" ng-click="addDailyPlan()">등록</button>
-    </form>
-  </div>
+</header>
+
+<div class="container">
   <tabset justified="true">
     <tab ng-repeat="day in week" heading="{{day.text}}" active="tabActive[$index]">
       <div ng-include="'components/dailyPlanBar/dailyPlanBar.html'" style="margin-bottom: 30px;margin-top: 30px"></div> <!--네비게이션바 include-->
 
 
-      <div class="jumbotron" ng-repeat="dayPlan in weekPlan|filter:{day: day.text} | orderBy:'startTime'">
+      <div class="jumbotron" popover-template="updatePopover.templateUrl" ng-repeat="dayPlan in weekPlan|filter:{day: day.text} | orderBy:'startTime'" ng-click="checkDay(dayPlan.day)">
         <h4>{{dayPlan.title}}</h4>
-        <h6>{{dayPlan.day}}</h6>
-        <h6>{{dayPlan.startTime}}</h6>
-        <h6>~</h6>
-        <h6>{{dayPlan.endTime}}</h6>
+        <h6>반복 : <span ng-repeat="day in dayPlan.day">{{day}} </span></h6>
+        <h6>시간 : {{dayPlan.startTime}} ~ {{dayPlan.endTime}}</h6>
         <p>
-          <a popover-template="planPopover.templateUrl" class="btn btn-primary btn-sm" ng-click="checkDay(dayPlan.day)">update </a>
         </p>
       </div>
     </tab>
   </tabset>
 </div>
 
-<script type="text/ng-template" id="popoverTemplate.html">
+<div style="text-align: center;">
+  <a popover-template="createPopover.templateUrl" class="btn btn-primary btn-lg" ng-click="isCollapsed = !isCollapsed">
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+  </a>
+</div>
+<div ng-init="isCollapsed = true" collapse="isCollapsed">
   <form class="form-group">
-  <input type="text" class="form-control" ng-model="dayPlan.title"/>
-  <div class="btn-group">
-    <label class="btn btn-primary btn-sm" ng-repeat="day in week"  ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
-  </div>
-  <input type="number" class="form-control" placeholder="시작시간" ng-model="dayPlan.startTime"/>
-  <input type="number" class="form-control" placeholder="종료시간" ng-model="dayPlan.endTime"/>
-  <button type="submit" ng-click="updateDailyPlan(dayPlan)">update</button>
-</form>
+    <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+    <div class="btn-group">
+      <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+    </div>
+    <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
+    <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
+    <button type="submit" ng-click="addDailyPlan()">등록</button>
+  </form>
+
+
+
+<!--
+업데이트 popover template
+-->
+<script type="text/ng-template" id="updatePopover.html">
+  <form class="form-group">
+    <input type="text" class="form-control" ng-model="dayPlan.title"/>
+    <div class="btn-group">
+      <label class="btn btn-primary btn-sm" ng-repeat="day in week"  ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+    </div>
+    <input type="number" class="form-control" placeholder="시작시간" ng-model="dayPlan.startTime"/>
+    <input type="number" class="form-control" placeholder="종료시간" ng-model="dayPlan.endTime"/>
+    <button type="submit" ng-click="updateDailyPlan(dayPlan)">update</button>
+    <button type="submit" ng-click="deleteDailyPlan(dayPlan)">delete</button>
+  </form>
 </script>
-
-
-
-
-
-
-<!--</form>-->
-<!--<table class="table table-hover">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th>시간</th>-->
-<!--<th>월</th>-->
-<!--<th>화</th>-->
-<!--<th>수</th>-->
-<!--<th>목</th>-->
-<!--<th>금</th>-->
-<!--<th>토</th>-->
-<!--<th>일</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--<tbody>-->
-<!--<tr ng-repeat="dailyPlan in weekPlan">-->
-<!--<td>{{$index+6}}~{{$index+7}}</td>-->
-<!--<td>{{dailyPlan.day === 'monday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'tuesday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'wednesday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'thursday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'friday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'saturday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--<td>{{dailyPlan.day === 'sunday' && dailyPlan.start===$index+6?dailyPlan.title:''}}</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
 
 

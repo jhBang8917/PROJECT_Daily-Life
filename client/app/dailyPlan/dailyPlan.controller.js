@@ -15,8 +15,9 @@ angular.module('dailyLifeApp')
 
     $scope.weekPlan = [];
 
-    $scope.planPopover = {
-      templateUrl : 'popoverTemplate.html'
+
+    $scope.updatePopover = {
+      templateUrl : 'updatePopover.html'
     };
 
     /*
@@ -33,7 +34,7 @@ angular.module('dailyLifeApp')
 
     //post 특정플랜 to mongodb
     $scope.addDailyPlan = function(){
-      console.log($scope.user._id);
+      console.log($scope.title);
       $http.post('/api/dailyPlan', {
         owner : $scope.user._id,
         title: $scope.title,
@@ -47,7 +48,7 @@ angular.module('dailyLifeApp')
 
     //update 특정 플랜 to mongodb
     $scope.updateDailyPlan = function(dayPlan){
-      //console.log(dayPlan);
+      //console.log(dayPlan.title);
       //console.log(enabledDay());
       $http.put('api/dailyPlan/'+dayPlan._id,{
         title: dayPlan.title,
@@ -55,6 +56,10 @@ angular.module('dailyLifeApp')
         startTime : dayPlan.startTime,
         endTime : dayPlan.endTime
       });
+    }
+
+    $scope.deleteDailyPlan = function(dayPlan){
+      $http.delete('api/dailyPlan/'+dayPlan._id);
     }
 
     /*

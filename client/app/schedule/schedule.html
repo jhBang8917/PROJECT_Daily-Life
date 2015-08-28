@@ -1,8 +1,9 @@
 <div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
 
-
+<header class="function-title">
+  <h1>Schedule</h1>
+</header>
 <div class="container">
-  <h4>schedule page : {{message}}</h4>
   <div ui-calendar="uiConfig.calendar" ng-model="eventSources" ></div>
 </div>
 <script type="text/ng-template" id="modalTemplate.html">

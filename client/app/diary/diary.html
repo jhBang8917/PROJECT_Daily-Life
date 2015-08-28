@@ -1,21 +1,20 @@
 <div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
 
-
+<header class="function-title">
+    <h1>Diary</h1>
+</header>
 <div class="container">
-  <h4>일기장</h4>
 
 
   	<form class="form-group">
       <legend>{{today | amDateFormat:'dddd, MMMM Do YYYY'}}</legend>
-      <legend>{{userId}} 의 일기장</legend>
-      <span>날씨정보...</span>
-      <textarea rows="10" class="form-control" ng-model="diaryContent" placeholder="오늘의 일기"></textarea>
       <input type="text" class="form-control" placeholder="오늘의 다짐" ng-model="diaryTodayPromise">
-  	<button type="submit" class="btn btn-primary" ng-click="addDiary()">Submit</button>
+      <textarea rows="10" class="form-control" ng-model="diaryContent" placeholder="오늘의 일기" style="margin-top: 10px"></textarea>
+  	<button type="submit" class="btn btn-primary" ng-click="addDiary()" style="margin-top: 10px">Write</button>
   </form>
 
-  <ul class="list-group">
-  	<li class="list-group-item" ng-repeat="diary in allDiary">[ {{diary.todayPromise}} ]   {{diary.date | amDateFormat:'dddd, MMMM Do YYYY'}}</li>
+  <ul class="list-group" style="margin-top: 50px">
+  	<li class="list-group-item" ng-repeat="diary in allDiary">[ {{diary.todayPromise}} ]   <span style="float: right">{{diary.date | amDateFormat:'dddd, MMMM Do YYYY'}}</span></li>
   </ul>
 
 </div>
