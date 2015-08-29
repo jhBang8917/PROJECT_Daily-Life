@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div> <!--네비게이션바 include-->
 
 <header class="function-title">
-  <h1>DailyPlanner</h1>
+  <h1>Daily Planner</h1>
 </header>
 
 <div class="container">
@@ -21,22 +21,22 @@
   </tabset>
 </div>
 
+<div class="container " ng-init="isCollapsed = true" collapse="isCollapsed">
+  <form class="form-group">
+    <input type="text" class="form-control" placeholder="title" ng-model="title"/>
+    <div class="btn-group">
+      <label class="btn btn-info" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
+    </div>
+    <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
+    <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
+    <button type="submit" class="btn btn-success" ng-click="addDailyPlan()">등록</button>
+  </form>
+</div>
 <div style="text-align: center;">
   <a popover-template="createPopover.templateUrl" class="btn btn-primary btn-lg" ng-click="isCollapsed = !isCollapsed">
     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
   </a>
 </div>
-<div ng-init="isCollapsed = true" collapse="isCollapsed">
-  <form class="form-group">
-    <input type="text" class="form-control" placeholder="title" ng-model="title"/>
-    <div class="btn-group">
-      <label class="btn btn-primary" ng-repeat="day in week" ng-model="day.enabled" btn-checkbox>{{day.text}}</label>
-    </div>
-    <input type="number" class="form-control" placeholder="시작시간" ng-model="startTime"/>
-    <input type="number" class="form-control" placeholder="종료시간" ng-model="endTime"/>
-    <button type="submit" ng-click="addDailyPlan()">등록</button>
-  </form>
-
 
 
 <!--

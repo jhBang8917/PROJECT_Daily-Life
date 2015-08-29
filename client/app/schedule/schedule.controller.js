@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('dailyLifeApp')
-  .controller('ScheduleCtrl', function($scope, $http, socket, $compile,uiCalendarConfig, $modal){
+  .controller('ScheduleCtrl', function($scope, $http, socket, $compile,uiCalendarConfig, $modal, Auth){
+
+    $scope.user = Auth.getCurrentUser();
 
     $scope.calendarDayClick = function(date, jsEvent, view){
         var modalInstance = $modal.open({
@@ -63,7 +65,7 @@ angular.module('dailyLifeApp')
     /* config object */
     $scope.uiConfig = {
       calendar:{
-        height: 450,
+        height: 'auto',
         editable: true,
         header:{
           left: 'month basicWeek basicDay',
@@ -79,7 +81,7 @@ angular.module('dailyLifeApp')
       }
     };
 
-    $http.get('/api/things').success(function(data) {
+    $http.get('/api/things/byOwnerId/'+$scope.user._id).success(function(data) {
       //뭔가 더 간단한 방법이 있을거 같다. update 이
       for(var i = 0; i < data.length; i++)
       {
@@ -128,8 +130,8 @@ angular.module('dailyLifeApp')
 
   })
 
-  .controller('ModalInstanceCtrl', function ($scope, $modalInstance, todayDate, $http) {
-
+  .controller('ModalInstanceCtrl', function ($scope, $modalInstance, todayDate, $http, Auth) {
+    $scope.user = Auth.getCurrentUser();
     //$scope.items = items;
     //$scope.selected = {
     //  item: $scope.items[0]
@@ -148,6 +150,7 @@ angular.module('dailyLifeApp')
         return;
 
       $http.post('/api/things', {
+        owner : $scope.user._id,
         title: $scope.newThing,
         start: todayDate,
         end: todayDate

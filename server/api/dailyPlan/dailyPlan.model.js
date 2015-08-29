@@ -17,10 +17,9 @@ var DailyPlanSchema = new Schema({
 
 /*
 * save 전에 시간 체크하는 validation
-*
+* 
 * */
-DailyPlanSchema.pre('create', function(next){
-  //console.log('pre save 진입');
+DailyPlanSchema.pre('save', function(next){
   for(var i =0; i < this.day.length; i++){
       mongoose.models['DailyPlan']
         .find(

@@ -179,19 +179,19 @@ angular.module('dailyLifeApp')
               break;
             case 'morning':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
-                allDay : false,
+                //allDay : false,
                 dayPlan : 'morning'
               });
               break;
             case 'afternoon':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
-                allDay : false,
+                //allDay : false,
                 dayPlan : 'afternoon'
               });
               break;
             case 'night':
               $http.put('/api/things/' + e.originalEvent.dataTransfer.getData('thingId'),{
-                allDay : false,
+                //allDay : false,
                 dayPlan : 'night'
               });
               break;
